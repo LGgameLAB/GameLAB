@@ -80,62 +80,20 @@
 <div id=box></div>
 
 <script src=https://cdn.pubnub.com/sdk/javascript/pubnub.4.0.11.min.js></script>
-<script>
-	$(document).ready(function () {
-  // Initialize the PubNub API connection.
-  var pubnub = PUBNUB.init({
-    publish_key: 'PUBNUB PUBLISH KEY HERE',
-    subscribe_key: 'PUBNUB SUBSCRIBE KEY HERE'
-  });
- 
-  // Grab references for all of our elements.
-  var messageContent = $('#messageContent'),
-      sendMessageButton = $('#sendMessageButton'),
-      messageList = $('#messageList');
- 
-  // Handles all the messages coming in from pubnub.subscribe.
-  function handleMessage(message) {
-    var messageEl = $("<li class='message'>"
-        + "<span class='username'>" + message.username + ": </span>"
-        + message.text
-        + "</li>");
-    messageList.append(messageEl);
-    messageList.listview('refresh');
- 
-    // Scroll to bottom of page
-    $("html, body").animate({ scrollTop: $(document).height() - $(window).height() }, 'slow');
-  };
- 
-  // Compose and send a message when the user clicks our send message button.
-  sendMessageButton.click(function (event) {
-    var message = messageContent.val();
- 
-    if (message != '') {
-      pubnub.publish({
-        channel: 'chat',
-        message: {
-          username: 'test',
-          text: message
+<script>(function(){
+      var pubnub = new PubNub({ publishKey : 'demo', subscribeKey : 'demo' });
+      function $(id) { return document.getElementById(id); }
+      var box = $('box'), input = $('input'), channel = '10chat-demo';
+      pubnub.addListener({
+          message: function(obj) {
+              box.innerHTML = (''+obj.message).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML
+          }});
+      pubnub.subscribe({channels:[channel]});
+      input.addEventListener('keyup', function(e) {
+          if ((e.keyCode || e.charCode) === 13) {
+            pubnub.publish({channel : channel,message : input.value,x : (input.value='')});
         }
       });
- 
-      messageContent.val("");
-    }
-  });
- 
-  // Also send a message when the user hits the enter button in the text area.
-  messageContent.bind('keydown', function (event) {
-    if((event.keyCode || event.charCode) !== 13) return true;
-    sendMessageButton.click();
-    return false;
-  });
- 
-  // Subscribe to messages coming in from the channel.
-  pubnub.subscribe({
-    channel: 'chat',
-    message: handleMessage
-  });
-});
-</script>
+})();</script>
 </nav>
 </html>
