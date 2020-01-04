@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Super Mario Kart</title>
+    <style>
+      html{
+        background-color: blue
+      }
+      p{
+        font-weight = bold;
+        border-radius: 15px;
+        border-style: solid;
+        color:black;
+        border: solid;
+        padding: 20px;
+        background-color: red;
+      }
+      p a{
+        border-right-color: black;
+        color:black;
+        text-decoration: none;
+        font-weight:100;
+        font-family: sans-serif;
+        border-right:2px solid;
+        padding: 8px;
+        font-size: 20px
+      }
+      p a.selected{
+        color: gray;
+        border-right-color: black;
+      }
+      header {
+        background-color: #3bff00;
+        padding: 1%;
+        border: 2px solid;
+        border-radius: 10px;
+      }
+      body nav{
+        border: 2px solid;
+        background-color: #ea6c00;
+        padding: 8px;
+        border-radius: 10px;
+      }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Made with Thimble</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <header>
+    <h2> <sup>LAB's</sup> Games and more  </h2>
+    <p>
+      <a href = "https://gamelab.netlify.com">Home</a>
+      <a href="https://gamelab.netlify.com/Gamepage">Games</a>
+      <a href = "https://gamelab.netlify.com/index-6">Game Dev</a>
+      <a href="https://gamelab.netlify.com/other pages">Other Pages</a>
+	    <a href="https://gamelab.netlify.com/chatroom">Chat Room</a>
+    </p>
+  </header>
+  <body>
+    <nav>
+        <center>
+		<div id ="emu" style="height: 800px; min-height: 356px; width: 100%;"></div>
+		<script>
+			var NepPlayer = "#emu";
+			var NepEmu = "snes";
+			var NepLang = "en";
+			var gameUrl = "Snes roms/Super Mario Kart (USA).zip";
+			var NjsScript=document.createElement('script');
+			NjsScript.src="//mem.neptunjs.com/njs/njsLoader.js";
+			document.body.appendChild(NjsScript)
+		</script>
+	 
+		<script src="https://mem.neptunjs.com/njs/njsLoader.js" type="text/javascript"> //NeptunJS lib
+	</center>
+    </nav>
+  </body>
+</html>
