@@ -1,63 +1,99 @@
 <html>
-<head>
-  <script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
-  <!--<script type='text/javascript' src='http://0.0.0.0:8080/scaledrone.js'></script>-->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <style>
-    body {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 13px;
-      display: flex;
-      flex-direction: column;
-      max-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    .members-count,
-    .members-list,
-    .messages {
-      border: 1px solid #e4e4e4;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
-    .messages {
-      flex-shrink: 1;
-      overflow: auto;
-    }
-    .message {
-      padding: 5px 0;
-    }
-    .message .member {
-      display: inline-block;
-    }
-    .member {
-      padding-right: 10px;
-      position: relative;
-    }
-    .message-form {
-      display: flex;
-      flex-shrink: 0;
-    }
-    .message-form__input {
-      flex-grow: 1;
-      border: 1px solid #dfdfdf;
-      padding: 10px 15px;
-      font-size: 16px;
-    }
-    .message-form__button {
-      margin: 10px;
-    }
-  </style>
-</head>
-<body>
-  <div class="members-count">-</div>
-  <div class="members-list">-</div>
-  <div class="messages"></div>
-  <form class="message-form" onsubmit="return false;">
-    <input class="message-form__input" placeholder="Type a message.." type="text"/>
-    <input class="message-form__button" value="Send" type="submit"/>
-  </form>
-  <script src="./script.js"></script>
-</body>
+       <head>
+	        <link rel="icon" href="Labs.png">
+    <title>LAB's Games and More</title>
+    <style>
+      html{
+        background-color: blue
+      }
+      header p{
+        font-weight = bold;
+        border-radius: 15px;
+        border-style: solid;
+        color:black;
+        border: solid;
+        padding: 20px;
+        background-color: red;
+      }
+       header p a{
+        border-right-color: black;
+        color:black;
+        text-decoration: none;
+        font-weight:100;
+        font-family: sans-serif;
+        border-right:2px solid;
+        padding: 8px;
+        font-size: 20px
+      }
+      p a.selected{
+        color: gray;
+        border-right-color: black;
+      }
+      header {
+        background-color: #3bff00;
+        padding: 1%;
+        border: 2px solid;
+        border-radius: 10px;
+      }
+      body {
+        center
+      } 
+      body article {
+        border: 2px solid;
+        background-color: #ea6c00;
+        padding-left: 8px;
+		padding-right: 8px;
+		padding-bottom: 16px;
+        border-radius: 10px;
+          }
+      body article h7{
+        text-indent  ;
+      }
+	     nav {
+        border: 2px solid;
+        background-color: #ea6c00;
+        padding-left: 8px;
+		padding-right: 8px;
+		padding-bottom: 16px;
+        border-radius: 10px;
+          }
+    </style>
+    <title>Made with Thimble</title>
+  </head>
+    <header>	
+      <h2> <sup>LAB's</sup> Games and more  </h2>
+      <p>
+        <a href= "Index.html">Home</a>
+        <a href="Gamepage.html">Games</a>
+        <a href="index-6.html">Game Dev</a>
+        <a href="other pages.html">Other Pages</a>
+	<a class="selected">Chat Room</a>
+      </p>
+    </header>
+	<center>
+<nav>
+      <h2>Enter Chat and Press Enter</h2>
+<div><input id=input placeholder=you-chat-here /></div>
+
+<h4>Chat Output ↡</h4>
+            </center>
+<div id=box></div>
+
+<script src=https://cdn.pubnub.com/sdk/javascript/pubnub.4.0.11.min.js></script>
+<script>(function(){
+      var pubnub = new PubNub({ publishKey : 'demo', subscribeKey : 'demo' });
+      function $(id) { return document.getElementById(id); }
+      var box = $('box'), input = $('input'), channel = '10chat-demo';
+      pubnub.addListener({
+          message: function(obj) {
+              box.innerHTML = (''+obj.message).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML
+          }});
+      pubnub.subscribe({channels:[channel]});
+      input.addEventListener('keyup', function(e) {
+          if ((e.keyCode || e.charCode) === 13) {
+            pubnub.publish({channel : channel,message : input.value,x : (input.value='')});
+        }
+      });
+})();</script>
+</nav>
 </html>
