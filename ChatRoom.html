@@ -1,36 +1,99 @@
+<html>
+       <head>
+	        <link rel="icon" href="Labs.png">
+    <title>LAB's Games and More</title>
+    <style>
+      html{
+        background-color: blue
+      }
+      header p{
+        font-weight = bold;
+        border-radius: 15px;
+        border-style: solid;
+        color:black;
+        border: solid;
+        padding: 20px;
+        background-color: red;
+      }
+       header p a{
+        border-right-color: black;
+        color:black;
+        text-decoration: none;
+        font-weight:100;
+        font-family: sans-serif;
+        border-right:2px solid;
+        padding: 8px;
+        font-size: 20px
+      }
+      p a.selected{
+        color: gray;
+        border-right-color: black;
+      }
+      header {
+        background-color: #3bff00;
+        padding: 1%;
+        border: 2px solid;
+        border-radius: 10px;
+      }
+      body {
+        center
+      } 
+      body article {
+        border: 2px solid;
+        background-color: #ea6c00;
+        padding-left: 8px;
+		padding-right: 8px;
+		padding-bottom: 16px;
+        border-radius: 10px;
+          }
+      body article h7{
+        text-indent  ;
+      }
+	     nav {
+        border: 2px solid;
+        background-color: #ea6c00;
+        padding-left: 8px;
+		padding-right: 8px;
+		padding-bottom: 16px;
+        border-radius: 10px;
+          }
+    </style>
+    <title>Made with Thimble</title>
+  </head>
+    <header>	
+      <h2> <sup>LAB's</sup> Games and more  </h2>
+      <p>
+        <a href= "Index.html">Home</a>
+        <a href="Gamepage.html">Games</a>
+        <a href="index-6.html">Game Dev</a>
+        <a href="other pages.html">Other Pages</a>
+	<a class="selected">Chat Room</a>
+      </p>
+    </header>
+	<center>
+<nav>
+      <h2>Enter Chat and Press Enter</h2>
+<div><input id=input placeholder=you-chat-here /></div>
 
-<!-- Chat in 10 lines of JavaScript code using PubNub JavaScript V4 SDK -->
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" type="image/png" href="icon.png">
-        <meta name="description" content="Example of a JavaScript chat app using PubNub JavaScript V4 SDK.">
-  		<meta name="keywords" content="JavaScript,PubNub,Chat,chat-room,chatting,SDK,PubSub-sdk,tutorial">
-        <meta name="author" content="Chandler Mayo">
-        <title>JavaScript Chat | PubNub</title>
-    </head>
-    <body>
-        <p><a href="https://www.pubnub.com/?devrel_pbpn=javascript-chat"><img src="https://d2c805weuec6z7.cloudfront.net/Powered_By_PubNub.png" alt="Powered By PubNub" width="150"></a><p>
-        <p>Enter chat and press enter.</p>
-        <input id="input" placeholder="Your Message Here"/>
-        <p>Chat Output:<p>
-        <div id="box"></div>
+<h4>Chat Output ↡</h4>
+            </center>
+<div id=box></div>
 
-        <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.23.0.min.js"></script>
-        <script>(function(){
-        	var pubnub = new PubNub({publishKey : 'demo',subscribeKey : 'demo'}); // Your PubNub keys here. Get them from https://dashboard.pubnub.com.
-        	var box = document.getElementById("box"), input = document.getElementById("input"), channel = 'chat';
-        	pubnub.subscribe({channels: [channel]}); // Subscribe to a channel.
-        	pubnub.addListener({message: function(m) {
-               	box.innerHTML = (''+m.message).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML; // Add message to page.
-            }});
-        	input.addEventListener('keypress', function (e) {
-        	    (e.keyCode || e.charCode) === 13 && pubnub.publish({ // Publish new message when enter is pressed. 
-        	        channel : channel, message : input.value, x : (input.value='')
-        	    });
-        	});
-        })();</script>
-   </body>
+<script src=https://cdn.pubnub.com/sdk/javascript/pubnub.4.0.11.min.js></script>
+<script>(function(){
+      var pubnub = new PubNub({ publishKey : 'demo', subscribeKey : 'demo' });
+      function $(id) { return document.getElementById(id); }
+      var box = $('box'), input = $('input'), channel = '10chat-demo';
+      pubnub.addListener({
+          message: function(obj) {
+              box.innerHTML = (''+obj.message).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML
+          }});
+      pubnub.subscribe({channels:[channel]});
+      input.addEventListener('keyup', function(e) {
+          if ((e.keyCode || e.charCode) === 13) {
+            pubnub.publish({channel : channel,message : input.value,x : (input.value='')});
+        }
+      });
+})();</script>
+</nav>
 </html>
