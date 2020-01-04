@@ -1,8 +1,4 @@
 <html>
-	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://unpkg.com/cookie_js@1.2.2/cookie.min.js"></script>
-    <script src="https://unpkg.com/socket.io-client@2/dist/socket.io.slim.js"></script>
-    <script src="javascript.js"></script>
        <head>
 	        <link rel="icon" href="Labs.png">
     <title>LAB's Games and More</title>
@@ -82,52 +78,22 @@
 <h4>Chat Output ↡</h4>
             </center>
 <div id=box></div>
-<script>
-var user = cookie.get('user');
-if (!user) {
 
-  // Ask for the username if there is none set already
-  user = prompt('Choose a username:');
-  if (!user) {
-    alert('We cannot work with you like that!');
-  } else {
-    // Store it in the cookies for future use
-    cookie.set('user', user);
-  }
-}
-
-var socket = io();
-
-// The user count. Can change when someone joins/leaves
-socket.on('count', function (data) {
-  $('.user-count').html(data);
-});
-
-// When we receive a message
-// it will be like { user: 'username', message: 'text' }
-socket.on('message', function (data) {
-  $('.chat').append('<p><strong>' + data.user + '</strong>: ' + data.message + '</p>');
-});
-
-// When the form is submitted
-$('form').submit(function (e) {
-  // Avoid submitting it through HTTP
-  e.preventDefault();
-
-  // Retrieve the message from the user
-  var message = $(e.target).find('input').val();
-
-  // Send the message to the server
-  socket.emit('message', {
-    user: cookie.get('user') || 'Anonymous',
-    message: message
-  });
-
-  // Clear the input and focus it for a new message
-  e.target.reset();
-  $(e.target).find('input').focus();
-});
-		
-</script>
+<script src=https://cdn.pubnub.com/sdk/javascript/pubnub.4.0.11.min.js></script>
+<script>(function(){
+      var pubnub = new PubNub({ publishKey : 'demo', subscribeKey : 'demo' });
+      function $(id) { return document.getElementById(id); }
+      var box = $('box'), input = $('input'), channel = '10chat-demo';
+      pubnub.addListener({
+          message: function(obj) {
+              box.innerHTML = (''+obj.message).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML
+          }});
+      pubnub.subscribe({channels:[channel]});
+      input.addEventListener('keyup', function(e) {
+          if ((e.keyCode || e.charCode) === 13) {
+            pubnub.publish({channel : channel,message : input.value,x : (input.value='')});
+        }
+      });
+})();</script>
 </nav>
 </html>
