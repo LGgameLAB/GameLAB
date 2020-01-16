@@ -79,14 +79,14 @@
 				
 				<br>
 				</article>
-	    		<button id="save-btn">Save Text file</button>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 			<script>
-				$("#save-btn").click(function() {
+				function save() {
   					var blob = new Blob(["test text"], {type: "text/plain;charset=utf-8"});
-  					saveAs(blob, "testfile1.txt");
+  					(blob, "testfile1.txt");
 				});
 			</script>
+			<input type="button" onClick="save();" value="Save">
 		</body>
 	</center>
 </html>
